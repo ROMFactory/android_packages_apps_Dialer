@@ -51,11 +51,16 @@ public class CallLogActivity extends Activity implements
     private CallLogFragment mMissedCallsFragment;
     private CallStatsFragment mStatsFragment;
 
+    private CallLogFragment mIncomingCallsFragment;
+    private CallLogFragment mOutgoingCallsFragment;
+
     private static final int TAB_INDEX_ALL = 0;
     private static final int TAB_INDEX_MISSED = 1;
     private static final int TAB_INDEX_STATS = 2;
+    private static final int TAB_INDEX_INCOMING = 3;
+    private static final int TAB_INDEX_OUTGOING = 4;
 
-    private static final int TAB_INDEX_COUNT = 3;
+    private static final int TAB_INDEX_COUNT = 5;
 
     public class ViewPagerAdapter extends FragmentPagerAdapter {
         public ViewPagerAdapter(FragmentManager fm) {
@@ -74,6 +79,12 @@ public class CallLogActivity extends Activity implements
                 case TAB_INDEX_STATS:
                     mStatsFragment = new CallStatsFragment();
                     return mStatsFragment;
+                case TAB_INDEX_INCOMING:
+                    mIncomingCallsFragment = new CallLogFragment(Calls.INCOMING_TYPE);
+                    return mIncomingCallsFragment;
+                case TAB_INDEX_OUTGOING:
+                    mOutgoingCallsFragment = new CallLogFragment(Calls.OUTGOING_TYPE);
+                    return mOutgoingCallsFragment;
             }
             throw new IllegalStateException("No fragment at position " + position);
         }
@@ -151,11 +162,25 @@ public class CallLogActivity extends Activity implements
         statsTab.setTabListener(mTabListener);
         actionBar.addTab(statsTab);
 
+        final Tab incomingTab = actionBar.newTab();
+        final String incomingTitle = getString(R.string.call_log_incoming_title);
+        incomingTab.setContentDescription(incomingTitle);
+        incomingTab.setText(incomingTitle);
+        incomingTab.setTabListener(mTabListener);
+        actionBar.addTab(incomingTab);
+
+        final Tab outgoingTab = actionBar.newTab();
+        final String outgoingTitle = getString(R.string.call_log_outgoing_title);
+        outgoingTab.setContentDescription(outgoingTitle);
+        outgoingTab.setText(outgoingTitle);
+        outgoingTab.setTabListener(mTabListener);
+        actionBar.addTab(outgoingTab);
+
         mViewPager = (ViewPager) findViewById(R.id.call_log_pager);
         mViewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.setOnPageChangeListener(mOnPageChangeListener);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(3);
     }
 
     @Override
