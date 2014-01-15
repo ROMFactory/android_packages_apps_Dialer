@@ -529,8 +529,7 @@ public class CallLogAdapter extends GroupingListAdapter
     	mAdapterHelper.injectContactInfoForTest(number, countryIso, contactInfo);
     }
     
-    @VisibleForTesting
-    void enqueueRequest(String number, String countryIso, ContactInfo callLogInfo,
+    protected void enqueueRequest(String number, String countryIso, ContactInfo callLogInfo,
     		boolean immediate) {
     	mAdapterHelper.enqueueRequest(number, countryIso, callLogInfo, immediate);
     }
