@@ -83,4 +83,6 @@
     <color name="call_stats_outgoing">#99cc00</color>
     <color name="call_stats_missed">#eb1313</color>
     <color name="call_stats_bar_background">#88888888</color>
+    <color name="call_stats_pie_chart_outline_color">#eeeeee</color>
+
 </resources>
